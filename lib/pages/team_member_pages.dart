@@ -24,76 +24,63 @@ class TeamMembersPage extends StatelessWidget {
       body: StreamBuilder (
         stream: Firestore.instance.collection('posts').snapshots(),
         builder: (context,snapshot) {
-          if(!snapshot.hasData){
-            const Text('Loading..');
+          if (!snapshot.hasData) {
+            return const Text('Loading..');
           }
           else
-            return Row (
-              children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: Container(),
-                ),
-                Expanded(
-                  flex: 10,
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context,index) {
-                        DocumentSnapshot mypost=snapshot.data.documents[index];
-                        Row (
-                          children: <Widget>[
-                            Material(
-                              elevation: size_8,
-                              borderRadius: BorderRadius.all(Radius.circular(size_12)),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(size_12)),
-                                child: Image.network(
-                                  '${mypost['image']}',
-                                  height: 100,
-                                  width: 80,
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: size_20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                RichText(
-                                  text: TextSpan(text: '${mypost['title']}'.toUpperCase(),
-                                      style: TextStyle (
-                                        color: Colors.black,
-                                        fontSize: size_20,
-                                        fontWeight: FontWeight.w900,
-                                      ) ),
-                                ),
-                                SizedBox(height: size_8),
-                                Text('${mypost['subtitle']}',
-                                  style: TextStyle
-                                    (
-                                    color: blueColor,
-                                    fontSize: size_12,
-                                    fontWeight: FontWeight.w800,
-                                  ),)
-                              ],
-                            )
-                          ],
-                        );
-                      },
-                      separatorBuilder: (context,index) {
-                        SizedBox(
-                          height: size_20,
-                        );
-                      }, itemCount: snapshot.data.documents.length,)
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(),
-                )
-              ],
+            return
+              ListView.separated(
+                itemBuilder: (context, index) {
+                  DocumentSnapshot mypost = snapshot.data.documents[index];
+                  Row(
+                    children: <Widget>[
+                      Material(
+                        elevation: size_8,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(size_12)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(size_12)),
+                          child: Image.network(
+                            '${mypost['image']}',
+                            height: 100,
+                            width: 80,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: size_20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(text: '${mypost['title']}'
+                                .toUpperCase(),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: size_20,
+                                  fontWeight: FontWeight.w900,
+                                )),
+                          ),
+                          SizedBox(height: size_8),
+                          Text('${mypost['subtitle']}',
+                            style: TextStyle
+                              (
+                              color: blueColor,
+                              fontSize: size_12,
+                              fontWeight: FontWeight.w800,
+                            ),)
+                        ],
+                      )
+                    ],
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  SizedBox(
+                    height: size_20,
+                  );
+                }, itemCount: snapshot.data.documents.length,);
+                 }),
             );
-        },
-      )
-    );
+        }
   }
-}
