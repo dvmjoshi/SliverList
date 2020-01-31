@@ -1,3 +1,5 @@
+
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:listview/model/member.dart';
 import 'package:listview/resources/colors.dart';
@@ -32,7 +34,8 @@ class TeamMembersPage extends StatelessWidget {
               ListView.separated(
                 itemBuilder: (context, index) {
                   DocumentSnapshot mypost = snapshot.data.documents[index];
-                  Row(
+                  print('${mypost['title']}');
+                 return Row(
                     children: <Widget>[
                       Material(
                         elevation: size_8,
@@ -74,13 +77,41 @@ class TeamMembersPage extends StatelessWidget {
                       )
                     ],
                   );
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              child: Material(
+                color: Colors.white,
+                elevation: 14.0,
+                borderRadius: BorderRadius.circular(24.0),
+                shadowColor: Color(0x802196f3),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 250,
+                      width: 350,
+                      child: ClipRRect(
+                        borderRadius: new BorderRadius.circular(24.0),
+                        child: Image(
+                          fit: BoxFit.contain,
+                          alignment: Alignment.topCenter,
+                          image: NetworkImage('${mypost['image']}'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
                 },
                 separatorBuilder: (context, index) {
-                  SizedBox(
-                    height: size_20,
+                 return SizedBox(
+                    height: size_40,
                   );
                 }, itemCount: snapshot.data.documents.length,);
                  }),
+
             );
         }
   }
