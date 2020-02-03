@@ -130,7 +130,7 @@ class TeamMembersPage extends StatelessWidget {
         StreamBuilder(
           stream: Firestore.instance.collection('posts').snapshots(),
           builder: (context,snapshot){
-            if(!snapshot.hasData){
+            if(snapshot.hasData){
               return SliverList(
                 delegate: SliverChildBuilderDelegate((context,int index){
                   DocumentSnapshot mypost=snapshot.data.documents[index];
