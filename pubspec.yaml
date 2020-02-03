@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+  transparent_image: ^1.0.0
   cloud_firestore: ^0.13.0+1
   font_awesome_flutter: ^8.2.0
   flutter_test:
