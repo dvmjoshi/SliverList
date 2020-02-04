@@ -4,7 +4,10 @@ import 'pages/team_member_pages.dart';
 
 void main() => runApp(MyApp());
 
+@override
+
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           canvasColor: Colors.white
       ),
-      home: TeamMembersPage(),
+      home: Search(),
     );
   }
 }
