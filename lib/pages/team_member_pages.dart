@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:listview/myflexiableappbar.dart';
 import 'package:listview/myappbar.dart';
@@ -7,8 +8,7 @@ import 'package:transparent_image/transparent_image.dart';
 void main() => runApp(MyApp());
 var number;
 var mypost;
-class MyApp extends StatefulWidget {
-  
+class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -21,18 +21,12 @@ class MyApp extends StatefulWidget {
       ),
     );
   }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
 }
 
 class Search extends StatefulWidget {
-  
-  
   Search({Key key, this.title}) : super(key: key);
+
+
 
   final String title;
 
@@ -41,26 +35,11 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  @override void initState() {
-    super.initState();
-    print('init');
-    StreamBuilder(
-      stream: Firestore.instance.collection('posts').snapshots(),
-      builder: (context,snapshot){
-        DocumentSnapshot mypost = snapshot.data;
-        if(snapshot.hasData){
-           print('no data');
-        }
-        else print('dataFound!');
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      CustomScrollView(
+      body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
               title: MyAppBar(),
@@ -71,14 +50,13 @@ class _SearchState extends State<Search> {
                 background: MyFlexiableAppBar(),
               )
           ),
-
-      /*    SliverList(
+          SliverList(
             delegate: SliverChildBuilderDelegate ((context,int index){
               return StreamBuilder (
                 stream:Firestore.instance.collection('posts').snapshots(),
                 builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
                   DocumentSnapshot mypost = snapshot.data.documents[index];
-                  if(!snapshot.hasData){
+                  if(snapshot.hasData){
                     return Container(
                       child: FadeInImage.memoryNetwork(
                         placeholder: kTransparentImage,
@@ -94,10 +72,9 @@ class _SearchState extends State<Search> {
                 childCount:3
             ),
 
-          )*/
+          )
         ],
       ),
-
 
     );
   }
