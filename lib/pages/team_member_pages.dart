@@ -36,6 +36,20 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  Future _data;
+  Future getsData()async{
+    var firestore =Firestore.instance;
+    QuerySnapshot qn=await firestore.collection("posts").getDocuments();
+    return qn.documents;
+  }
+  @override
+  void initState(){
+    super.initState();
+    setState(() {
+      _data=getsData();
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,16 +66,17 @@ class _SearchState extends State<Search> {
               )
           ),
           SliverList(
-            delegate: SliverChildBuilderDelegate ((context,int index){
-              return StreamBuilder (
-                stream:Firestore.instance.collection('posts').snapshots(),
-                builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
-                  DocumentSnapshot mypost = snapshot.data.documents[index];
+            delegate: SliverChildBuilderDelegate ((context,int index){ // we need argument snapshot in sliver child
+              return FutureBuilder (
+                future:_data,
+                childCount:3
+                builder: (_, snapshot) {
+                 // DocumentSnapshot mypost = snapshot.data.documents[index];
                   if(snapshot.hasData){
                     return Container(
                       child: FadeInImage.memoryNetwork(
                         placeholder: kTransparentImage,
-                        image: '${mypost['image']}',
+                        image: '${snapshot.data[index].data["images"]}',
                         width: MediaQuery.of(context).size.width,
                         fit: BoxFit.fitWidth,
                       ),
@@ -71,7 +86,7 @@ class _SearchState extends State<Search> {
               );
             },
 
-                childCount:3
+                
              /* childCount: 3*/
             ),
 
