@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:listview/myflexiableappbar.dart';
 import 'package:listview/myappbar.dart';
@@ -69,10 +70,24 @@ class _SearchState extends State<Search> {
                 },
               );
             },
+
                 childCount:3
+             /* childCount: 3*/
             ),
 
           )
+         /* StreamBuilder(
+            stream: Firestore.instance.collection('posts').snapshots(),
+            builder: (context, snapshot){
+              DocumentSnapshot mypost = snapshot.data.documents;
+              if(!snapshot.hasData){
+                return Text('Loading');
+              }
+              else return SliverList(
+                delegate: SliverChildBuilderDelegate(context,int index),
+              );
+            },
+          )*/
         ],
       ),
 
